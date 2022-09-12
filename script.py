@@ -15,7 +15,7 @@ browser.get('https://www.anbient.com')
 def procura():
     print("Digite o anime que deseja buscar: ")
     input_search = browser.find_element(By.ID, 'edit-search-api-views-fulltext')
-    anime_name = 'absolute duo'
+    anime_name = input()
     input_search.send_keys(anime_name)
     input_search.send_keys(Keys.ENTER)
     return browser.find_elements(By.XPATH, "//a[@rel='bookmark']")
@@ -28,7 +28,7 @@ def selecionar(resultados):
         print(str(count) + ' - ' + value.text)
         count = count + 1
     print("Qual destes deseja baixar?")
-    click = 1
+    click = input()
     resultados[int(click) - 1].click()
 
 
@@ -60,7 +60,6 @@ def download_concluido(file):
     print("Baixado!")
 
 
-# link = procura()
 selecionar(procura())
 links = captura_links()
 path = criar_pasta()
@@ -71,12 +70,12 @@ chrome_options.add_experimental_option('prefs', prefs)
 browser = webdriver.Chrome(chrome_options=chrome_options)
 
 for value in links:
-    browser.get(value)
-    print("esperanto tempo para página carregar sem bug")
-    time.sleep(5)
-    download = browser.find_element(By.ID, 'dlbutton').get_attribute("href")
-    browser.get(download)
+    if value != "":
+        browser.get(value)
+        time.sleep(10)  # tempo para site não identificar que é um bot
+        download = browser.find_element(By.ID, 'dlbutton').get_attribute("href")
+        browser.get(download)
+        file = browser.find_elements(By.TAG_NAME, 'font')
+        download_concluido(path + '\\' + file[3].get_attribute('innerHTML'))
 
-    file = browser.find_elements(By.TAG_NAME, 'font')
-    download_concluido(path + '\\' + file[3].get_attribute('innerHTML'))
-
+browser.close()
