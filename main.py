@@ -8,6 +8,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.chrome.options import Options
 
 # Global variables
 links = []
@@ -39,9 +40,10 @@ def clear_list():
 
 
 def capture_links(link):
-    chrome_options = webdriver.ChromeOptions()
+    chrome_options = Options()
     chrome_options.add_argument("--headless")
-    browser = webdriver.Chrome(chrome_options=chrome_options)
+    chrome_options.add_argument('--log-level=1')
+    browser = webdriver.Chrome(options=chrome_options)
     browser.get(link)
     global name
     name = browser.find_element(By.ID, 'page-title').text
@@ -83,7 +85,6 @@ def create_directory():
     global name
     global path
     name = name.replace(":", " - ").title()
-    print(name)
     path = main_path + name
 
     if not os.path.exists(path):
@@ -97,11 +98,12 @@ def check_download(file_name):
 
 def execute():
     count = 0
-    chrome_options = webdriver.ChromeOptions()
+    chrome_options = Options()
     chrome_options.add_argument("--headless")
+    chrome_options.add_argument('--log-level=1')
     prefs = {'download.default_directory': path}
     chrome_options.add_experimental_option('prefs', prefs)
-    browser = webdriver.Chrome(chrome_options=chrome_options)
+    browser = webdriver.Chrome(options=chrome_options)
 
     while count < (len(links) - 1):
         progress['value'] = 100 * count / (len(links) - 1)
@@ -116,14 +118,16 @@ def execute():
     browser.close()
     progress['value'] = 100
     title["text"] = "Download Concluido com sucesso!"
+    progress.destroy()
 
 
 def search(text_search):
     global list_results
 
-    chrome_options = webdriver.ChromeOptions()
+    chrome_options = Options()
     chrome_options.add_argument("--headless")
-    browser = webdriver.Chrome(chrome_options=chrome_options)
+    chrome_options.add_argument('--log-level=1')
+    browser = webdriver.Chrome(options=chrome_options)
     browser.get('https://www.anbient.com/search?search_api_views_fulltext=' + text_search)
 
     result = browser.find_elements(By.XPATH, "//a[@rel='bookmark']")
