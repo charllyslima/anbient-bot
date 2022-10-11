@@ -12,6 +12,7 @@ from selenium.webdriver.support import expected_conditions as ec
 # Global variables
 links = []
 path = ''
+main_path = "D:\\TeraBoxDownload\\animes\\"
 name = ''
 progress = ''
 list_results = []
@@ -83,7 +84,7 @@ def create_directory():
     global path
     name = name.replace(":", " - ").title()
     print(name)
-    path = "D:\\TeraBoxDownload\\animes\\" + name
+    path = main_path + name
 
     if not os.path.exists(path):
         os.makedirs(path)
