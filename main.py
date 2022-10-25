@@ -108,13 +108,20 @@ def execute():
     while count < (len(links) - 1):
         progress['value'] = 100 * count / (len(links) - 1)
         browser.get(links[count])
-        download = WebDriverWait(browser, 20).until(
-            ec.visibility_of_element_located((By.ID, 'dlbutton'))).get_attribute('href')
-        browser.get(download)
-        file = browser.find_elements(By.TAG_NAME, 'font')
-        file_name = file[3].get_attribute('innerHTML')
-        check_download(file_name)
-        count = count + 1
+        try:
+            download = WebDriverWait(browser, 20).until(
+                ec.visibility_of_element_located((By.ID, 'dlbutton'))).get_attribute('href')
+            browser.get(download)
+            file = browser.find_elements(By.TAG_NAME, 'font')
+            file_name = file[3].get_attribute('innerHTML')
+            check_download(file_name)
+            count = count + 1
+        except:
+            title["text"] = "O arquivo solicitado esta com link quebrado! Seguindo para o proximo arquivo"
+            time.sleep(5)
+            title["text"] = "Iniciando download... Por favor aguarde."
+            count = count + 1
+
     browser.close()
     progress['value'] = 100
     title["text"] = "Download Concluido com sucesso!"
