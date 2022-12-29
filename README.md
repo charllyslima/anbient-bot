@@ -5,22 +5,22 @@
   <img src="https://img.shields.io/badge/tech-python-yellow">
 </div>
 
-Este é um script python com objetivo de fazer downloads em massa de animes do site Anbient
+This is a python script with the aim of bulk downloading anime from the Anbient website
 
-## Provedores suportados
+## Supported Providers
 
 - Zippyshare
 
-## Requerimentos
+## Requirements
 
 - Python 3.10.6
 - Chrome 106.0.5249.103
 
-## Modo de uso
+## How to use
 
-1. Altere a variavel `main_path` para a pasta que deseja salvar seus animes.
-2. Execute o script com o comando: `python main.py`
-2. Digite o nome do anime que deseja baixar
-3. Clique em buscar
-4. Aguarde a busca ser finalizada e clique no anime desejado
-5. Aguarde até todo o donwload ser finalizado (Você pode acompanhar o progresso pela barra de progresso)
+1. Change the `main_path` variable to the folder where you want to save your animes.
+2. Run the script with the command: `python main.py`
+2. Enter the name of the anime you want to download
+3. Click on `Buscar`
+4. Wait for the search to be completed and click on the desired anime
+5. Wait until the whole download is finished (You can follow the progress through the progress bar)
